@@ -2,10 +2,11 @@
   {{movie.zhName}}
 </div>
 
-<ng-template [ngIf]="selected">
-  <h1>你所選擇的是 {{ selected.zhName }}</h1>
+<div *ngIf="(selected | async) as movie">
+  <h1>你所選擇的是 {{ movie.zhName }}</h1>
   場次有
-  <div class="session" *ngFor="let session of sessions | async">
-    {{ session.start | date: 'MM-dd HH:mm:SS' }} - {{ session.end | date: 'MM-dd HH:mm:SS'}}
-  </div>
-</ng-template>
+</div>
+
+<div class="session" *ngFor="let session of sessions | async">
+  {{ session.start | date: 'MM-dd HH:mm' }} - {{ session.end | date: 'MM-dd HH:mm'}}
+</div>
