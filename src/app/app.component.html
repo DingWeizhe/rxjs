@@ -1,12 +1,19 @@
-<div class="movie" *ngFor="let movie of movies | async" (click)="selected.next(movie)">
-  {{movie.zhName}}
+<input ngModel (ngModelChange)="keyword.next($event)">
+<div class="movies">
+  <div class="movie" *ngFor="let movie of movies | async" (click)="clickMovie.next(movie)">
+    <img [src]="movie.mainPoster" alt="">
+    <div class="title">{{movie.zhName}}</div>
+  </div>
 </div>
+
+<div> 現在頁數 : {{ page | async }}</div>
+<button (click)="nextPage.next(-1)">上一頁</button>
+<button (click)="nextPage.next(+1)">下一頁</button>
 
 <div *ngIf="(selected | async) as movie">
   <h1>你所選擇的是 {{ movie.zhName }}</h1>
   場次有
-</div>
-
-<div class="session" *ngFor="let session of sessions | async">
-  {{ session.start | date: 'MM-dd HH:mm' }} - {{ session.end | date: 'MM-dd HH:mm'}}
+  <div class="session" *ngFor="let session of sessions | async">
+    {{ session.start | date: 'MM-dd HH:mm' }} - {{ session.end | date: 'MM-dd HH:mm'}}
+  </div>
 </div>

@@ -1,0 +1,23 @@
+.movie {
+  display: inline-block;
+  margin: 1em;
+  background-color: #333;
+  box-shadow: 0px 1px 7px rgba(0, 0, 0, 0.1), 0px 7px 17px rgba(0, 0, 0, 0.2);
+
+  vertical-align: top;
+}
+.movie img {
+  display: inline-block;
+  width: 200px;
+  height: 300px;
+}
+.movie .title {
+  text-align: center;
+  font-size: 1em;
+  line-height: 1.5em;
+  width: 200px;
+  box-sizing: border-box;
+  padding: 0.5em;
+  height: 4em;
+  color: #fff;
+}
