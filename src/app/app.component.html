@@ -6,9 +6,11 @@
   </div>
 </div>
 
-<div> 現在頁數 : {{ page | async }}</div>
-<button (click)="nextPage.next(-1)">上一頁</button>
-<button (click)="nextPage.next(+1)">下一頁</button>
+<div>
+  <button (click)="turn.next(-1)">上一頁</button>
+  現在頁數 : {{ page | async }}
+  <button (click)="turn.next(+1)">下一頁</button>
+</div>
 
 <div *ngIf="(selected | async) as movie">
   <h1>你所選擇的是 {{ movie.zhName }}</h1>

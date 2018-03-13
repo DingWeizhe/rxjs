@@ -66,14 +66,18 @@ export type Session = {
 })
 export class AppComponent {
   keyword = new BehaviorSubject<string>("");
-  nextPage = new BehaviorSubject(1);
-  page = this.nextPage.scan((acc, value, idx) => acc + value).shareReplay(1);
 
-  zeroingSubscription = this.keyword
-    .flatMap(e => this.page.take(1))
-    .subscribe(page => this.nextPage.next(1 - page));
+  turn = new BehaviorSubject(1);
+  page = this.turn.scan((acc, value, idx) => acc + value).shareReplay(1);
 
-  movies = Observable.combineLatest(this.keyword.debounceTime(200), this.page)
+  movies = Observable.combineLatest(
+    this.keyword
+      .debounceTime(200)
+      .do(event =>
+        this.page.take(1).subscribe(page => this.turn.next(1 - page))
+      ),
+    this.page
+  )
     .mergeMap(([keyword, page]) =>
       this.http.get<Movie[]>(
         `http://movie-api.gosu.bar/api/movie/findAll?page=${page}&name=${keyword}`
@@ -107,8 +111,4 @@ export class AppComponent {
   });
 
   constructor(public http: HttpClient) {}
-
-  ngOnDestroy() {
-    this.zeroingSubscription.unsubscribe();
-  }
 }
