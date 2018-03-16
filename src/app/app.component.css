@@ -21,3 +21,10 @@
   height: 4em;
   color: #fff;
 }
+
+.box {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-color: #930;
+}
